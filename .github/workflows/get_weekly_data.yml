@@ -31,17 +31,17 @@ jobs:
       - uses: actions/checkout@v2
       
       # Setup python packages
-      - name: Install Dependencies
-        run: | 
-          pip install pandas
-          pip install numpy
-          pip install bs4
-          pip install datetime
-          pip install geopy
+      # - name: Install Dependencies
+        # run: | 
+          # pip install pandas
+          # pip install numpy
+          # pip install bs4
+          # pip install datetime
+          # pip install geopy
         
       - name: Run Scraper
         env: 
           repo_token: ${{ secrets.GITHUB_TOKEN }}
         run: | 
-          python print('Hello World')
+          python hello_world.py
           # python get_weekly_data.py
