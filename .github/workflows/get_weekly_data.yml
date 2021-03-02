@@ -1,0 +1,47 @@
+# This workflow is for scraping data from the OCC website on a weekly basis
+
+name: occ-scraper
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the main & master branch
+  push:
+    branches: 
+      - main
+  pull_request:
+    branches: 
+      - main
+  schedule:
+    - cron: '10 5 * * 1'  # job runs on Monday mornings at 5:10 AM 
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    container: docker://joyzoursky/python-chromedriver:latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      
+      # Setup python packages
+      - name: Install Dependencies
+        run: | 
+          pip install pandas
+          pip install numpy
+          pip install bs4
+          pip install datetime
+          pip install geopy
+        
+      - name: Run Scraper
+        env: 
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+        run: | 
+          python print('Hello World')
+          # python get_weekly_data.py
